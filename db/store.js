@@ -15,17 +15,20 @@ class Store {
     // defining a read method
     read() {
         // Asynchronously reading db.jason file
+        console.log("inside");
         return readFileAsync("db/db.json", "utf8");
     }
     // Defining a write method
-    write() {
+    write(fileName, data) {
         // Asynchronously writing note's content to db.jason file
         // Note's content is probably coming from front-end java. Will have to check this out. The object is
-        return writeFileAsync("db/db.json", JSON.stringify(note));
+        // return writeFileAsync("db.json", JSON.stringify(note));
+        return writeFileAsync(fileName, data);
     }
 
     getNotes() {
         return this.read().then((notes) => {
+            console.log("Console Log: ", notes);
             // Initialized read function that returns info in db.json
             // Then starts new function with the parameter of notes
             let parsedNotes;
@@ -37,12 +40,15 @@ class Store {
             } catch (err) {
                 parsedNotes = [];
             }
+            console.log("Parsed Notes:", parsedNotes);
+            console.log("Inside getNotes");
 
             return parsedNotes;
         });
     }
 
     addNote(note) {
+        console.log("NOTE:", note);
         // breaking down note object so we could use title and text variable
         const { title, text } = note;
         // If null in title or null in text a new Error is thrown
@@ -52,26 +58,30 @@ class Store {
 
             // Add a unique id to the note using uuid package
             const newNote = { title, text, id: uuidv1() };
+            console.log("NEW NOTE:", newNote);
+
+
+            return this.getNotes().then(notes => {
+                notes.push(newNote);
+                console.log("New Notes Array:", notes);
+                console.log("This:", this);
+                this.write("db/db.json",JSON.stringify(notes));
+                return newNote;
+            }).catch(err => {console.log("Error:", err)});``
+
 
             // Get all notes, add the new note, write all the updated notes, return the newNote
-            // Getting all notes parsed
-            // newNote is grabbing the Title and the text values of the note and adding a random id to it.
-            // newNote now has to be added to the notes we have recieved from getNote which is parsedNotes
-            // Now data in parsedNotes had to be rewritten
-            this.getNotes()
-                .then(() => {
-                    parsedNotes.push(newNote)
-                    // Might have to parse
-                    console.log(newNote)
-                        .then(notes => {
-                            return parsedNotes.write()
-
-                        })
-                })
 
 
-            // Have to come up with this function
-
+            // Get Notes
+            // return this.getNotes()
+            // .then((notes) => {
+            //     notes.push(newNote);
+            // })
+            // .then((notes) =>{
+            //     console.log("Array of Notes:", notes);
+            //     return notes.writeFileAsync();
+            // })
 
 
 
@@ -81,15 +91,23 @@ class Store {
 
     }
 
-    removeNote(id) {
-        // Need to define this method
+    // removeNote(id) {
+    //     // Need to define this method
 
-        // Read, remove with particular id, rewrite
+    //     // Read, remove with particular id, rewrite
 
 
-    }
+    // }
 
 
 }
 
-module.exports = Store;
+
+
+const store = new Store();
+
+
+module.exports = {
+    Store,
+    store
+};

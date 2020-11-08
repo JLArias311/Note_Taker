@@ -1,9 +1,9 @@
 // apiRoutes is going to handle all the GET and POST requests for this server
 
 
-// Hooking to store.js
+// grabbing to const store in store.js
 
-const store = require('../db/store');
+const { store } = require('../db/store');
 
 
 // Going to create routes for api get and post
@@ -44,11 +44,17 @@ module.exports = function (app) {
 
     // Information is pushed
     app.post("/api/notes", (req, res) => {
+        // console.log("req:", req);
+        console.log("req dot body:", req.body);
         store
             // Initializes addNote method with a parameter of req.body
             .addNote(req.body)
+            // I have to finish addNote first
+            // Getting newly established req.bod with new note included
             // Then newly defined note is set to equal response
-            .then((note) => res.json(note))
+            .then((note) => {
+                console.log("API Route Note:", note);
+                res.json(note)})
             .catch((err) => res.status(500).json(err));
         // If not a JSON object, returs an error
     });
