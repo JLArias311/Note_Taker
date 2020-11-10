@@ -50,3 +50,11 @@ npm run test
 
 If you have any questions about the repo, open an issue or contact me directly at JonathanL.Arias@outlook.com.
 You can find more of my work at [JLArias311](https://github.com/JLArias311)
+
+<img width="1156" alt="NA 1" src="https://user-images.githubusercontent.com/68923455/98630960-4c233700-22ea-11eb-85fa-8819869a553d.PNG">
+
+<img width="1125" alt="NA 2" src="https://user-images.githubusercontent.com/68923455/98630979-56ddcc00-22ea-11eb-8e31-b623edd7ba57.PNG">
+
+<img width="1128" alt="Na 3" src="https://user-images.githubusercontent.com/68923455/98630985-58a78f80-22ea-11eb-9d9f-6daf94efa553.PNG">
+
+<img width="1127" alt="Na 4" src="https://user-images.githubusercontent.com/68923455/98630987-5ba28000-22ea-11eb-8b27-2a48236a365b.PNG">
